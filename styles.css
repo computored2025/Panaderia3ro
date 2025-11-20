@@ -1,133 +1,214 @@
-/* Reset básico */
+/* --- Configuración General --- */
+:root {
+    --primary-color: #d4a373; /* Color dorado/pan */
+    --secondary-color: #8d5524; /* Color madera */
+    --bg-light: #faedcd; /* Fondo crema */
+    --text-dark: #3e2723;
+    --white: #ffffff;
+    --success: #388e3c;
+    --danger: #d32f2f;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 body {
-    background-color: #fdfbf7; /* Color crema suave */
-    color: #4e342e; /* Marrón oscuro */
+    background-color: var(--bg-light);
+    color: var(--text-dark);
 }
 
-header {
-    background-color: #d84315; /* Naranja quemado */
-    color: white;
+/* --- Banner Principal --- */
+.hero-banner {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    color: var(--white);
+    padding: 3rem 1rem;
     text-align: center;
-    padding: 1rem;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
+.hero-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* --- Layout Principal --- */
 .container {
     display: flex;
     max-width: 1200px;
-    margin: 20px auto;
-    gap: 20px;
+    margin: 30px auto;
+    gap: 30px;
     padding: 0 20px;
+    flex-wrap: wrap; /* Para que se adapte a celulares */
 }
 
-/* Estilos de la sección de productos */
-.products-section {
-    flex: 2; /* Ocupa el 70% aprox */
+.section-title {
+    margin-bottom: 20px;
+    border-bottom: 3px solid var(--primary-color);
+    display: inline-block;
+}
+
+/* --- Catálogo de Productos --- */
+.catalog-section {
+    flex: 3;
+    min-width: 300px;
 }
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px;
-    margin-top: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
 }
 
 .card {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    transition: transform 0.2s;
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden; /* Para que la imagen no se salga de las esquinas redondeadas */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .card:hover {
     transform: translateY(-5px);
-    border-color: #d84315;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
 }
 
-.card h3 {
-    margin: 10px 0;
-    font-size: 1.2rem;
+/* Estilo de las IMÁGENES en las tarjetas */
+.card-image-container {
+    height: 140px;
+    overflow: hidden;
+}
+
+.card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* IMPORTANTE: Hace que la imagen recorte para llenar el espacio sin deformarse */
+}
+
+.card-content {
+    padding: 15px;
+    text-align: center;
+}
+
+.card-content h3 {
+    font-size: 1rem;
+    margin-bottom: 8px;
 }
 
 .price {
     font-weight: bold;
-    color: #e65100;
-    font-size: 1.1rem;
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 10px;
 }
 
 .btn-add {
-    background-color: #6d4c41;
-    color: white;
+    background-color: var(--secondary-color);
+    color: var(--white);
     border: none;
-    padding: 8px 15px;
-    margin-top: 10px;
-    cursor: pointer;
-    border-radius: 5px;
+    padding: 10px;
     width: 100%;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
 }
 
 .btn-add:hover {
-    background-color: #4e342e;
+    background-color: var(--primary-color);
 }
 
-/* Estilos del carrito */
+/* --- Carrito estilo "Boleta" --- */
 .cart-section {
-    flex: 1; /* Ocupa el 30% aprox */
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    height: fit-content;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    flex: 1;
+    min-width: 250px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #eee;
 }
 
-#cart-items {
+.receipt-header {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    padding: 15px;
+    text-align: center;
+    border-radius: 12px 12px 0 0;
+}
+
+.receipt-body {
     list-style: none;
-    margin: 15px 0;
-    max-height: 300px;
+    padding: 20px;
+    max-height: 350px;
     overflow-y: auto;
-    border-bottom: 2px dashed #ddd;
+    flex-grow: 1;
 }
 
-#cart-items li {
+.receipt-body li {
     display: flex;
     justify-content: space-between;
     padding: 8px 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px dashed #ccc;
+    font-size: 0.9rem;
 }
 
-.total-container {
-    text-align: center;
+.receipt-footer {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 0 0 12px 12px;
+    border-top: 2px solid var(--secondary-color);
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.total-amount {
+    color: var(--secondary-color);
 }
 
 .btn-pay {
-    background-color: #2e7d32; /* Verde */
+    background-color: var(--success);
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 12px;
     width: 100%;
-    font-size: 1rem;
+    border-radius: 6px;
     cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
+    font-size: 1rem;
+    margin-bottom: 10px;
 }
 
 .btn-clear {
-    background-color: #c62828; /* Rojo */
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    margin-top: 5px;
+    background-color: transparent;
+    color: var(--text-dark);
+    border: 1px solid var(--danger);
+    padding: 8px;
     width: 100%;
+    border-radius: 6px;
     cursor: pointer;
-    border-radius: 5px;
+}
+.btn-clear:hover {
+    background-color: #ffebee;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+    font-size: 0.8rem;
+    color: var(--secondary-color);
 }

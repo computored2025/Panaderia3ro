@@ -4,35 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panadería Los Brothers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <header>
-        <h1>🥖 Panadería "Los Brothers" 🥐</h1>
-        <p>Sistema de Pedidos - Día del Logro</p>
+    <header class="hero-banner">
+        <div class="hero-content">
+            <h1>🥖 Panadería "Los Brothers" 🥐</h1>
+            <p>Calidad artesanal directo a tu mesa</p>
+        </div>
     </header>
 
-    <div class="container">
-        <section class="products-section">
-            <h2>Nuestros Productos</h2>
+    <main class="container">
+        <section class="catalog-section">
+            <h2 class="section-title">Nuestro Horno</h2>
             <div id="product-list" class="grid-container">
                 </div>
         </section>
 
         <aside class="cart-section">
-            <h2>🛒 Tu Pedido</h2>
-            <ul id="cart-items">
-                <li class="empty-msg">Tu canasta está vacía</li>
+            <div class="receipt-header">
+                <h3>🧾 Tu Pedido</h3>
+            </div>
+            <ul id="cart-items" class="receipt-body">
+                <li class="empty-msg">Selecciona productos...</li>
             </ul>
             
-            <div class="total-container">
-                <h3>Total: S/ <span id="total-price">0.00</span></h3>
-                <button onclick="payOrder()" class="btn-pay">Cobrar Pedido</button>
-                <button onclick="clearCart()" class="btn-clear">Limpiar</button>
+            <div class="receipt-footer">
+                <div class="total-row">
+                    <span>Total a Pagar:</span>
+                    <span class="total-amount">S/ <span id="total-price">0.00</span></span>
+                </div>
+                <button onclick="payOrder()" class="btn-pay">Confirmar Compra</button>
+                <button onclick="clearCart()" class="btn-clear">Cancelar</button>
             </div>
         </aside>
-    </div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2025 Panadería Los Brothers - Proyecto de Innovación 3ro Sec.</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
