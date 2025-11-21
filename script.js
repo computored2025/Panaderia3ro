@@ -1,4 +1,4 @@
-const numeroWhatsApp = "51999999999";
+const numeroWhatsApp = "51971099012";
 // Base de datos con IMÁGENES (URLs)
 const products = [
     { 
