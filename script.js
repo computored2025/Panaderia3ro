@@ -1,11 +1,22 @@
+/* ============================================================
+   1. NÚMERO DE WHATSAPP AL QUE SE ENVIARÁ EL PEDIDO
+   (Solo cambia el número si quieres que vaya a otro celular)
+============================================================ */
 const numeroWhatsApp = "51971099012";
-// Base de datos con IMÁGENES (URLs)
+
+/* ============================================================
+   2. BASE DE DATOS DE PRODUCTOS
+   Cada producto tiene:
+   - id: número único
+   - name: nombre del pan
+   - price: precio
+   - img: imagen del pan
+============================================================ */
 const products = [
     { 
         id: 1, 
         name: "Pan Francés Crocante", 
         price: 0.50,
-        // Usamos enlaces de Unsplash (imágenes gratuitas de alta calidad)
         img: "https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60"
     },
     { 
@@ -52,20 +63,33 @@ const products = [
     }
 ];
 
+/* ============================================================
+   3. EL CARRITO DE COMPRAS
+   Aquí se guardan los productos que el usuario va agregando.
+   Inicialmente está vacío.
+============================================================ */
 let cart = [];
 
-// 2. Función para dibujar los productos
+/* ============================================================
+   4. FUNCIÓN PARA CREAR LAS TARJETAS DE PRODUCTOS EN LA PÁGINA
+   (Se llama automáticamente cuando carga la página)
+============================================================ */
 function renderProducts() {
     const productList = document.getElementById("product-list");
-    productList.innerHTML = ""; // Limpiamos para evitar duplicados al recargar
+    productList.innerHTML = ""; // Limpiamos para no duplicar cosas
     
+    // Recorremos todos los productos y creamos sus tarjetas
     products.forEach(product => {
         const card = document.createElement("div");
         card.classList.add("card");
         
+        // Plantilla HTML de cada producto
         card.innerHTML = `
             <div class="card-image-container">
-                <img src="${product.img}" alt="${product.name}" class="card-img" onerror="this.src='https://placehold.co/500x300?text=Pan+Delicioso'">
+                <img src="${product.img}" 
+                     alt="${product.name}" 
+                     class="card-img"
+                     onerror="this.src='https://placehold.co/500x300?text=Pan+Delicioso'">
             </div>
             <div class="card-content">
                 <h3>${product.name}</h3>
@@ -78,26 +102,31 @@ function renderProducts() {
     });
 }
 
-// 3. Función MEJORADA para agregar (Agrupa cantidades)
+/* ============================================================
+   5. FUNCIÓN PARA AGREGAR PRODUCTOS AL CARRITO
+   Si el producto ya está → suma 1 cantidad
+   Si no está → lo agrega por primera vez
+============================================================ */
 function addToCart(id) {
-    const product = products.find(p => p.id === id);
+    const product = products.find(p => p.id === id); // Buscamos el producto en la lista
     
-    // Buscamos si el producto YA existe en el carrito
-    const existingItem = cart.find(item => item.id === id);
+    const existingItem = cart.find(item => item.id === id); // ¿Ya está en el carrito?
 
     if (existingItem) {
-        // Si ya existe, solo aumentamos la cantidad
+        // Si ya está, aumentamos la cantidad
         existingItem.quantity++;
     } else {
-        // Si no existe, lo agregamos con cantidad inicial = 1
-        // Usamos {...product} para crear una copia y no modificar el original
+        // Si no está, lo agregamos con cantidad 1
         cart.push({ ...product, quantity: 1 });
     }
 
-    updateCart();
+    updateCart(); // Actualizamos la vista
 }
 
-// 4. Función para actualizar la vista del carrito
+/* ============================================================
+   6. FUNCIÓN PARA MOSTRAR LOS PRODUCTOS DENTRO DEL CARRITO
+   También calcula el total a pagar.
+============================================================ */
 function updateCart() {
     const cartList = document.getElementById("cart-items");
     const totalSpan = document.getElementById("total-price");
@@ -105,9 +134,10 @@ function updateCart() {
     cartList.innerHTML = "";
     let total = 0;
 
+    // Recorremos todo el carrito
     cart.forEach(item => {
-        const itemTotal = item.price * item.quantity;
-        total += itemTotal;
+        const itemTotal = item.price * item.quantity; // Subtotal por producto
+        total += itemTotal; // Sumamos al total final
 
         const li = document.createElement("li");
         li.innerHTML = `
@@ -120,14 +150,19 @@ function updateCart() {
         cartList.appendChild(li);
     });
 
+    // Si no hay productos mostramos un mensaje
     if (cart.length === 0) {
         cartList.innerHTML = '<li class="empty-msg">Tu canasta está vacía</li>';
     }
 
+    // Mostramos el precio total
     totalSpan.innerText = total.toFixed(2);
 }
 
-// 5. Función para enviar a WhatsApp
+/* ============================================================
+   7. FUNCIÓN PARA ENVIAR EL PEDIDO A WHATSAPP
+   Crea un mensaje y abre WhatsApp automáticamente.
+============================================================ */
 function payOrder() {
     if (cart.length === 0) {
         alert("⚠️ La canasta está vacía.");
@@ -136,28 +171,30 @@ function payOrder() {
 
     const total = document.getElementById("total-price").innerText;
 
-    // Construimos el mensaje de texto
-    let mensaje = "Hola Panadería Los Brothers, quiero pedir:%0A%0A"; // %0A es un salto de línea
+    // Empezamos a crear el mensaje
+    let mensaje = "Hola Panadería Los Brothers, quiero pedir:%0A%0A";
 
     cart.forEach(item => {
-        // Ejemplo: - Pan Francés (x3) = S/ 1.50
         mensaje += `- ${item.name} (x${item.quantity}) = S/ ${(item.price * item.quantity).toFixed(2)}%0A`;
     });
 
     mensaje += `%0A*Total a Pagar: S/ ${total}*`;
     mensaje += "%0A%0AMétodo de pago: Yape / Plin";
 
-    // Abrir WhatsApp con el mensaje
+    // Abrimos WhatsApp en una nueva pestaña
     window.open(`https://wa.me/${numeroWhatsApp}?text=${mensaje}`, '_blank');
-    
-    // Opcional: Limpiar el carrito después de enviar
-    // clearCart(); 
 }
 
+/* ============================================================
+   8. FUNCIÓN PARA LIMPIAR EL CARRITO
+============================================================ */
 function clearCart() {
-    cart = [];
-    updateCart();
+    cart = [];    // Vaciamos el carrito
+    updateCart(); // Actualizamos la vista
 }
 
-// Iniciar la tienda
+/* ============================================================
+   9. INICIAR LA TIENDA
+   Apenas carga la página, dibujamos los productos.
+============================================================ */
 renderProducts();

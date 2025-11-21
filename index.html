@@ -2,51 +2,87 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <!-- Configura la página para que sea responsive en celulares -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Panadería Los Brothers</title>
+    
+    <!-- Ícono de la pestaña del navegador (favicon) -->
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3081/3081840.png" type="image/png">
+    
+    <!-- Importamos la fuente Montserrat desde Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Archivo CSS externo -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
+    <!-- ======================================
+         SECCIÓN PRINCIPAL: PORTADA / BANNER
+    ======================================= -->
     <header class="hero-banner">
         <div class="hero-content">
+            <!-- Título principal del proyecto -->
             <h1>🥖 Panadería "Los Brothers" 🥐</h1>
+            <!-- Subtítulo introductorio -->
             <p>Calidad artesanal directo a tu mesa</p>
         </div>
     </header>
 
+    <!-- Contenedor general del contenido -->
     <main class="container">
+        
+        <!-- ================================
+             CATÁLOGO DE PRODUCTOS
+        ================================= -->
         <section class="catalog-section">
             <h2 class="section-title">Nuestro Horno</h2>
-            <div id="product-list" class="grid-container">
-                </div>
+            
+            <!-- Aquí se insertarán los productos dinámicamente con JS -->
+            <div id="product-list" class="grid-container"></div>
         </section>
 
+        <!-- ================================
+             CARRITO DE COMPRA / RECIBO
+        ================================= -->
         <aside class="cart-section">
+            
             <div class="receipt-header">
                 <h3>🧾 Tu Pedido</h3>
             </div>
+            
+            <!-- Lista del carrito, se llena desde JS -->
             <ul id="cart-items" class="receipt-body">
+                <!-- Mensaje predeterminado cuando no hay productos -->
                 <li class="empty-msg">Selecciona productos...</li>
             </ul>
             
             <div class="receipt-footer">
+
+                <!-- Línea del total a pagar -->
                 <div class="total-row">
                     <span>Total a Pagar:</span>
+                    <!-- Monto final actualizado con JS -->
                     <span class="total-amount">S/ <span id="total-price">0.00</span></span>
                 </div>
+                
+                <!-- Botón de confirmación -->
                 <button onclick="payOrder()" class="btn-pay">Confirmar Compra</button>
+                <!-- Botón de vaciar carrito -->
                 <button onclick="clearCart()" class="btn-clear">Cancelar</button>
             </div>
         </aside>
     </main>
 
+    <!-- ================================
+         PIE DE PÁGINA
+    ================================= -->
     <footer class="footer">
         <p>© 2025 Panadería Los Brothers - Proyecto de Innovación 3ro Sec.</p>
     </footer>
 
+    <!-- Archivo JavaScript donde está la lógica del carrito -->
     <script src="script.js"></script>
 </body>
 </html>
